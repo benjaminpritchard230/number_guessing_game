@@ -28,16 +28,23 @@ def check_guess(player_guess, winning_number):
     else:
         return False
 
-def gameplay(winning_number):
+def gameplay():
     """Plays the number guessing game."""
+    winning_number = get_winning_number()
+    attempts = 1
     while True:
         player_guess = get_player_guess()
         if check_guess(player_guess, winning_number) is True:
             print('You guessed correctly!')
             break
-        if player_guess < winning_number:
-            print('You guessed too low!')
+        elif (player_guess < winning_number) and (attempts != 5):
+            print(f'You guessed too low!\nYou have made {attempts} of 5 attempts!')
+            attempts += 1
+            continue
+        elif (player_guess > winning_number) and (attempts != 5):
+            print(f'You guessed too high!\nYou have made {attempts} of 5 attempts!')
+            attempts += 1
             continue
         else:
-            print('You guessed too high!')
-            continue
+            print(f'You have made {attempts} of 5 attempts!\nYou have run out of attempts!')
+            break
